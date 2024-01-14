@@ -9,8 +9,8 @@ const FOOD_URL = process.env.FOOD_URL;
 // const API_KEY = process.env.API_KEY;
 // const jwt = require('jsonwebtoken');
 const cors = require('cors');
-// const multer = require('multer')
-// const upload = multer({ dest: 'uploads/' })
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 app.use(express.json());
 app.use(cors());
@@ -27,19 +27,19 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 let data = new FormData();
-data.append('image', fs.createReadStream('C:/Users/bryce/Brainstation/bryce-borer-capstone/src/assets/images/pizza.jpeg'), { encoding: null });
-// data.append('image', fs.createReadStream('./pizza.jpeg'));
+//data.append('image', fs.createReadStream('C:/Users/bryce/Brainstation/bryce-borer-capstone/src/assets/images/pizza.jpeg'), { encoding: null });
 
-app.post("/foodImage", (req, res) => {
-  console.log("DATA@@@ ", data)
+
+app.post("/foodImage", upload.single('foodImage'), (req, res) => {
+  data.append('image', fs.createReadStream('./ham-sandwich.jpeg'));
+
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
     url: 'https://vision.foodvisor.io/api/1.0/en/analysis/',
     headers: {
       'Authorization': 'Api-Key WGUmFqSK.gcxjKP1cm9F4MaLTZUlntSeuQWpHWreI',
-      "Content-Type": "multipart/form-data",
-      //...data.getHeaders()
+      ...data.getHeaders()
     },
     data: data
   };
@@ -52,7 +52,7 @@ app.post("/foodImage", (req, res) => {
     .catch((error) => {
       console.log(error);
     });
-  res.send('OK!!!!')
+  res.send("ok!!")
 });
 
 // app.post("/foodImage2", (req, res) =>{
