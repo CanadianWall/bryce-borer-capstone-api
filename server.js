@@ -80,7 +80,11 @@ function getToken(req) {
   return req.headers.authorization.split(" ")[1];
 }
 
-const users = {};
+const users = {
+  name: 'Bryce',
+  username: 'Bryce',
+  password: 'bryce'
+};
 
 app.post("/signup", (req, res) => {
   const { username, name, password } = req.body;
@@ -108,7 +112,7 @@ app.post("/login", (req, res) => {
   }
 });
 
-app.get("/profile", (req, res) => {
+app.get("/account", (req, res) => {
   res.json(req.decode);
 });
 
