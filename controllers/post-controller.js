@@ -52,7 +52,7 @@ const add = (req, res) => {
       .status(400)
       .send("Food data not found. Unable to add meal");
   }
-
+console.log(req.body)
   knex("post")
     .insert(req.body)
     .then((result) => {

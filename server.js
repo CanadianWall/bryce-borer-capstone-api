@@ -126,8 +126,8 @@ app.get('/data', (req, res) => {
   res.send('Welcome to my API');
 });
 
-app.use('/users', userRoutes);
-app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
+app.use('/post', postRoutes);
 
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
