@@ -11,9 +11,8 @@ module.exports = [
         activity_level: 250,
         tdee: 2074,
         ideal_carbs: 225,
-        ideal_protein: 225,
-        ideal_fat: 225,
-        ideal_sugar: 225,
-        ideal_carbs: 225
+        ideal_protein: 175,
+        ideal_fat: 50,
+        ideal_sugar: 35
     },
 ];

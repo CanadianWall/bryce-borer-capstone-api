@@ -2,9 +2,7 @@ PORT=8080
 CORS_ORIGIN=http://localhost:8080 
 API_KEY = WGUmFqSK.gcxjKP1cm9F4MaLTZUlntSeuQWpHWreI
 FOOD_URL = https://vision.foodvisor.io/api/1.0/en/analysis/
-
-# IMAGE_DIRECTORY needs to match where food-images folder is located. 
-IMAGE_DIRECTORY = C:/Users/bryce/Brainstation/bryce-borer-capstone/src/assets/images/food-images/
+IMAGE_DIRECTORY = ./assets/images/food-images/
 
 DB_HOST=127.0.0.1
 DB_NAME=saicheese
