@@ -3,7 +3,7 @@ const app = express();
 
 const tempFood = require ('./sampleOutput/sandwich.json')
 
-const { PORT, CORS_ORIGIN, API_KEY, FOOD_URL, IMAGE_DIRECTORY} = process.env
+const { PORT, API_KEY, FOOD_URL, IMAGE_DIRECTORY} = process.env
 const port = PORT || 8080;
 
 const cors = require('cors');
@@ -36,16 +36,17 @@ app.post("/foodImage", (req, res) => {
 
   //call to foodvisor API
 
-  // axios.request(config)
-  //   .then((response) => {
-  //     console.log(JSON.stringify(response.data));
-  //     res.send(JSON.stringify(response.data))
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
+  axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+      res.send(JSON.stringify(response.data))
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
-  res.send(tempFood)
+    // tempFood is for testing and reducing the number of API calls
+  // res.send(tempFood)
 });
 
 

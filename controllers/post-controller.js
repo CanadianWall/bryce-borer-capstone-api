@@ -10,6 +10,16 @@ const index = (_req, res) => {
     );
 };
 
+const trend = (req, res) => {
+  knex('post')
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) =>
+      res.status(400).send(`Error retrieving Posts: ${err}`)
+    );
+}
+
 const findOne = (req, res) => {
   knex("post")
     .where({ id: req.params.id })
@@ -111,5 +121,6 @@ module.exports = {
   posts,
   add,
   update,
-  remove
+  remove,
+  trend
 }
