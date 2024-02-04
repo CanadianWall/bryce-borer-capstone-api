@@ -35,7 +35,6 @@ app.post("/foodImage", (req, res) => {
   };
 
   //call to foodvisor API
-
   axios.request(config)
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -45,8 +44,6 @@ app.post("/foodImage", (req, res) => {
       console.log(error);
     });
 
-    // tempFood is for testing and reducing the number of API calls
-  // res.send(tempFood)
 });
 
 
