@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
 
-const tempFood = require ('./sampleOutput/sandwich.json')
-
 const { PORT, API_KEY, FOOD_URL, IMAGE_DIRECTORY} = process.env
 const port = PORT || 8080;
 
@@ -21,8 +19,6 @@ const postRoutes = require('./routes/post-routes');
 app.post("/foodImage", (req, res) => {
   let data = new FormData();
   data.append('image', fs.createReadStream(`${IMAGE_DIRECTORY}/${req.body.fileName}`), { encoding: null });
-  console.log("API KEY ",API_KEY)
-  console.log(req.body.fileName)
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
@@ -38,15 +34,12 @@ app.post("/foodImage", (req, res) => {
 
   axios.request(config)
     .then((response) => {
-      console.log(JSON.stringify(response.data));
       res.send(JSON.stringify(response.data))
     })
     .catch((error) => {
       console.log(error);
     });
 
-    // tempFood is for testing and reducing the number of API calls
-  // res.send(tempFood)
 });
 
 
