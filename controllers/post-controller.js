@@ -10,15 +10,7 @@ const index = (_req, res) => {
     );
 };
 
-const trend = (req, res) => {
-  knex('post')
-    .then((data) => {
-      res.status(200).json(data);
-    })
-    .catch((err) =>
-      res.status(400).send(`Error retrieving Posts: ${err}`)
-    );
-}
+
 
 const findOne = (req, res) => {
   knex("post")
@@ -96,7 +88,7 @@ const update = (req, res) => {
     });
 };
 
-const remove =  (req, res) => {
+const remove = (req, res) => {
   knex("post")
     .where({ id: req.params.id })
     .del()
@@ -114,6 +106,59 @@ const remove =  (req, res) => {
       res.status(500).json({ message: "Unable to delete meal" });
     });
 };
+
+const trend = (req, res) => {
+
+  // Create the new table
+  knex.raw(`
+CREATE TABLE daily_food_summary (
+  summary_date DATE,
+  user_id INT,
+  total_portion DECIMAL(10, 2),
+  total_calories DECIMAL(10, 2),
+  total_carbs DECIMAL(10, 2),
+  total_protein DECIMAL(10, 2),
+  total_fat DECIMAL(10, 2),
+  total_sugar DECIMAL(10, 2),
+  PRIMARY KEY (summary_date, user_id)
+);
+`);
+
+  // Populate the new table with aggregated data
+  knex.raw(`
+INSERT INTO daily_food_summary (summary_date, user_id, /* other columns */)
+SELECT
+    DATE(created_at) AS summary_date,
+    user_id,
+    SUM(portion) AS total_portion,
+    SUM(calories) AS total_calories,
+    SUM(carbs) AS total_carbs,
+    SUM(protein) AS total_protein,
+    SUM(fat) AS total_fat,
+    SUM(sugar) AS total_sugar
+FROM food_intake
+GROUP BY DATE(created_at), user_id;
+`)
+.then(data => {
+  res.status(200).json(data);
+})
+.catch(err => {
+  res.status(400).send(`Error retrieving data: ${err}`);
+});
+
+
+
+
+
+
+  // knex('post')
+  //   .then((data) => {
+  //     res.status(200).json(data);
+  //   })
+  //   .catch((err) =>
+  //     res.status(400).send(`Error retrieving Posts: ${err}`)
+  //   );
+}
 
 module.exports = {
   index,
