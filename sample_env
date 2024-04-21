@@ -1,7 +1,7 @@
 PORT=8080
 CORS_ORIGIN=http://localhost:8080
 # Change to your API key from https://www.foodvisor.io/en/vision/
-API_KEY = WGUmFqSK.gcxjKP1cm9F4MaLTZUlntSeuQWpHWreI
+API_KEY = 
 FOOD_URL = https://vision.foodvisor.io/api/1.0/en/analysis/
 IMAGE_DIRECTORY = ./assets/images/food-images/
 
